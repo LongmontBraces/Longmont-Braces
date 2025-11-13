@@ -145,6 +145,22 @@
     color: #374151;
     line-height: 1.5;
   }
+ /* Responsive map container */
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-top: 1rem;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 350px;
+  border: 0;
+}
 </style>
 <script type="application/ld+json">
 {
@@ -444,18 +460,32 @@ fetch('https://longmontbraces.com/feed/')
 </section>
 
     <!-- ========= NAP + MAPS ========= -->
-    <section>
-      <h3>Visit Us</h3>
-      <p><strong>Longmont Braces</strong><br>
-         1266 S. Hover St<br>
-         Longmont, CO 80501<br>
-         <a href="tel:+13037720510">(303) 772-0510</a></p>
+<!-- ========= VISIT US + GOOGLE MAP ========= -->
+<section>
+  <h3>Visit Us</h3>
+  <p><strong>Longmont Braces</strong><br>
+     1266 S. Hover St<br>
+     Longmont, CO 80501<br>
+     <a href="tel:+13037720510">(303) 772-0510</a></p>
 
-      <div class="platform-links">
-        <a href="https://maps.google.com/maps?q=Longmont+Braces+1266+S+Hover+St+Longmont+CO+80501" target="_blank">Open in Google Maps</a>
-        <a href="https://maps.apple.com/?address=1266%20S%20Hover%20St,Longmont,CO%2080501" target="_blank">Open in Apple Maps</a>
-      </div>
-    </section>
+  <div class="platform-links">
+    <a href="https://maps.google.com/maps?q=Longmont+Braces+1266+S+Hover+St+Longmont+CO+80501" target="_blank">Open in Google Maps</a>
+    <a href="https://maps.apple.com/?address=1266%20S%20Hover%20St,Longmont,CO%2080501" target="_blank">Open in Apple Maps</a>
+  </div>
+
+  <!-- GOOGLE MAP (responsive) -->
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.9134604006063!2d-105.13138222411702!3d40.1442113721809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876bfa1f43980931%3A0x76497c9be93d5427!2sLongmont%20Braces!5e0!3m2!1sen!2sus!4v1763077691851!5m2!1sen!2sus" 
+      width="100%" 
+      height="350" 
+      style="border:0; border-radius:12px; margin-top:1rem;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
 
     <!-- ========= DIRECTORY LISTINGS ========= -->
     <section>
