@@ -307,7 +307,7 @@ fetch('https://longmontbraces.com/feed/')
     const schema = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      "@id": "https:/longmontbraces/.github.io/longmont-braces/#newsfeed",  // TODO: Replace
+      "@id": "https:/longmontbraces/.github.io/longmont-braces/#newsfeed",  // 
       "name": "Latest from Longmont Braces",
       "description": "Fresh orthodontic tips and patient stories.",
       "itemListElement": newsItems
@@ -324,7 +324,7 @@ fetch('https://longmontbraces.com/feed/')
     const fallbackSchema = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      "@id": "https://your-microsite.com/#newsfeed",  // TODO: Replace
+     "@id": "https:/longmontbraces/.github.io/longmont-braces/#webpage"
       "name": "Latest from Longmont Braces",
       "description": "Fresh orthodontic tips and patient stories.",
       "itemListElement": [
@@ -620,7 +620,7 @@ function injectSchema(items) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "@id": "https://your-microsite.com/#newsfeed",   // TODO: replace
+   "@id": "https:/longmontbraces/.github.io/longmont-braces/#webpage"
     "name": "Latest from Longmont Braces",
     "description": "Fresh orthodontic tips and patient stories.",
     "itemListElement": newsItems
