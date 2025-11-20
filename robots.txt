@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# This microsite is 100% public and meant to be indexed
+Sitemap: https://longmontbraces.github.io/Longmont-Braces/sitemap.xml
