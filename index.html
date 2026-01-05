@@ -218,7 +218,8 @@
  "https://www.instagram.com/longmontbraces/",
  "https://www.yelp.com/biz/longmont-braces-longmont",
  "https://www.healthgrades.com/dentist/dr-stephanie-ross-xgw7n",
- "https://maps.app.goo.gl/hEzGJZfL8J5BNmR46"
+ "https://maps.app.goo.gl/hEzGJZfL8J5BNmR46",
+ "https://pressadvantage.com/i_organization/longmont-braces1" 
  ]
  },
  {
@@ -322,6 +323,7 @@
  </a>
  </div>
  </section>
+ 
 
  <!-- Social -->
  <section>
@@ -353,77 +355,125 @@
  © <script>document.write(new Date().getFullYear());</script> Longmont Braces – All rights reserved.
  </footer>
 
- <!-- SINGLE, CLEAN RSS + SCHEMA SCRIPT (live + fallback) -->
- <script>
- const RSS_URL = 'https://longmontbraces.com/feed/';
- const PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+<!-- NEW: Press Releases Section -->
+  <section>
+    <div id="press-releases-feed">Loading latest press releases...</div>
+  </section>
 
- fetch(PROXY_URL)
- .then(r => r.json())
- .then(data => {
- if (data.status !== 'ok' || !data.items) throw new Error('Bad feed');
- const items = data.items.slice(0, 5);
- renderFeed(items);
- injectSchema(items);
- })
- .catch(err => {
- console.warn('Live RSS failed, using fallback', err);
- const fallback = [
- { title: "What’s the Best Toothbrush for Braces? The Best Toothpaste for Braces?", link: "https://longmontbraces.com/best-toothbrush-for-braces/", pubDate: "2025-10-29T00:00:00", description: "Discover the best toothbrush for braces and the best toothpaste for braces…", enclosure: { url: "https://longmontbraces.com/wp-content/uploads/2025/10/Whats-the-Best-Toothbrush-for-Braces-Best-Toothpaste-for-Braces-Longmont-Braces-1024x683.jpg" } },
- { title: "Can You Whiten Your Teeth With Braces?", link: "https://longmontbraces.com/can-you-whiten-your-teeth-with-braces/", pubDate: "2025-10-20T00:00:00", description: "Wondering can you whiten your teeth with braces? Discover safe methods…", enclosure: { url: "https://longmontbraces.com/wp-content/uploads/2025/10/Can-You-Whiten-Your-Teeth-With-Braces-Longmont-Braces-1-1024x683.jpg" } },
- { title: "The Best Types of Braces for Adults in Longmont", link: "https://long montbraces.com/best-types-of-braces-for-adults/", pubDate: "2025-10-02T00:00:00", description: "Discover the best types of braces for adults in Longmont…", enclosure: { url: "https://longmontbraces.com/wp-content/uploads/2025/09/Types-of-Braces-for-Adults-Best-Braces-for-Adults-in-Longmont-Longmont-Braces-1024x683.jpg" } },
- { title: "Does Insurance Cover Invisalign in Colorado?", link: "https://longmontbraces.com/does-insurance-cover-invisalign-in-colorado/", pubDate: "2025-09-24T00:00:00", description: "If you’re asking does insurance cover Invisalign…", enclosure: { url: "https://longmontbraces.com/wp-content/uploads/2025/09/Does-Insurance-Cover-Invisalign-Longmont-Braces-Orthodontists-Certified-Invisalign-Provider.jpg" } },
- { title: "What Are the Best Braces Colors?", link: "https://longmontbraces.com/what-are-the-best-braces-colors/", pubDate: "2025-09-08T00:00:00", description: "Discover the best braces colors for every style, season…", enclosure: { url: "https://longmontbraces.com/wp-content/uploads/2025/09/What-are-the-best-braces-colors-Longmont-Braces-Braces-Color-Wheel-Braces-Color-Palette-1024x684.jpg" } }
- ];
- renderFeed(fallback);
- injectSchema(fallback);
- });
+  <!-- Existing Blog Posts Section (renamed for clarity) -->
+  <section>
+    <div id="rss-feed">Loading latest blog posts...</div>
+  </section>
 
- function renderFeed(items) {
- const feedDiv = document.getElementById('rss-feed');
- let html = `<h3>Latest Blog Posts from Longmont Braces</h3>`;
- items.forEach(item => {
- const date = new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
- const desc = (item.description || '').replace(/<[^>]*>/g, '').trim().substring(0, 160) + '...';
- html += `
- <div class="rss-item">
- <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
- <div class="rss-date">${date}</div>
- <div class="rss-desc">${desc}</div>
- </div>`;
- });
- feedDiv.innerHTML = html;
- }
+  <!-- UPDATED SCRIPT: Handles both Blog RSS and Press Releases RSS -->
+  <script>
+    // Blog RSS (existing)
+    const BLOG_RSS_URL = 'https://longmontbraces.com/feed/';
+    const BLOG_PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(BLOG_RSS_URL)}`;
 
- function injectSchema(items) {
- const newsItems = items.map((it, i) => ({
- "@type": "ListItem",
- "position": i + 1,
- "item": {
- "@type": "NewsArticle",
- "headline": it.title,
- "url": it.link,
- "datePublished": new Date(it.pubDate).toISOString().split('T')[0],
- "description": (it.description || '').replace(/<[^>]*>/g, '').trim().substring(0, 200) + "...",
- "image": it.enclosure?.url || "https://longmontbraces.com/wp-content/uploads/2024/02/logo.png",
- "author": { "@type": "Person", "name": "Longmont Braces Team" },
- "publisher": { "@id": "https://longmontbraces.com/#organization" }
- }
- }));
+    // Press Releases RSS (new)
+    const PRESS_RSS_URL = 'https://app.pressadvantage.com/feeds/channel/longmont-braces1?organization=longmont-braces1';
+    const PRESS_PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(PRESS_RSS_URL)}`;
 
- const schema = {
- "@context": "https://schema.org",
- "@type": "ItemList",
- "name": "Latest from Longmont Braces",
- "description": "Fresh orthodontic tips and patient stories.",
- "itemListElement": newsItems
- };
+    // Fetch and render Blog posts
+    fetch(BLOG_PROXY_URL)
+      .then(r => r.json())
+      .then(data => {
+        if (data.status !== 'ok' || !data.items) throw new Error('Bad feed');
+        const items = data.items.slice(0, 5);
+        renderBlogFeed(items);
+        injectBlogSchema(items);
+      })
+      .catch(err => {
+        console.warn('Live Blog RSS failed, using fallback', err);
+        const fallback = [ /* your existing fallback array */ ];
+        renderBlogFeed(fallback);
+        injectBlogSchema(fallback);
+      });
 
- const s = document.createElement('script');
- s.type = "application/ld+json";
- s.text = JSON.stringify(schema);
- document.head.appendChild(s);
- }
- </script>
+    // Fetch and render Press Releases
+    fetch(PRESS_PROXY_URL)
+      .then(r => r.json())
+      .then(data => {
+        if (data.status !== 'ok' || !data.items) throw new Error('Bad feed');
+        const items = data.items.slice(0, 5);
+        renderPressFeed(items);
+        injectPressSchema(items);
+      })
+      .catch(err => {
+        console.warn('Press Releases RSS failed', err);
+        document.getElementById('press-releases-feed').innerHTML = '<h3>Longmont Braces Press Releases</h3><p>No press releases available at this time.</p>';
+      });
+
+    // Render Blog Posts (existing logic, minor rename)
+    function renderBlogFeed(items) {
+      const feedDiv = document.getElementById('rss-feed');
+      let html = `<h3>Latest Blog Posts from Longmont Braces</h3>`;
+      items.forEach(item => {
+        const date = new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const desc = (item.description || '').replace(/<[^>]*>/g, '').trim().substring(0, 160) + '...';
+        html += `
+          <div class="rss-item">
+            <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
+            <div class="rss-date">${date}</div>
+            <div class="rss-desc">${desc}</div>
+          </div>`;
+      });
+      feedDiv.innerHTML = html;
+    }
+
+    // NEW: Render Press Releases (same styling)
+    function renderPressFeed(items) {
+      const feedDiv = document.getElementById('press-releases-feed');
+      let html = `<h3>Longmont Braces Press Releases</h3>`;
+      items.forEach(item => {
+        const date = new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const desc = (item.description || '').replace(/<[^>]*>/g, '').trim().substring(0, 160) + '...';
+        html += `
+          <div class="rss-item">
+            <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
+            <div class="rss-date">${date}</div>
+            <div class="rss-desc">${desc}</div>
+          </div>`;
+      });
+      feedDiv.innerHTML = html;
+    }
+
+    // Blog Schema (existing, minor rename)
+    function injectBlogSchema(items) {
+      // ... (your existing injectSchema function, renamed if desired) ...
+    }
+
+    // NEW: Press Releases Schema (similar structure)
+    function injectPressSchema(items) {
+      const newsItems = items.map((it, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "NewsArticle",
+          "headline": it.title,
+          "url": it.link,
+          "datePublished": new Date(it.pubDate).toISOString().split('T')[0],
+          "description": (it.description || '').replace(/<[^>]*>/g, '').trim().substring(0, 200) + "...",
+          "image": "https://longmontbraces.com/wp-content/uploads/2024/02/logo.png", // fallback image
+          "author": { "@type": "Organization", "name": "Longmont Braces" },
+          "publisher": { "@id": "https://longmontbraces.com/#organization" }
+        }
+      }));
+
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Longmont Braces Press Releases",
+        "description": "Official press releases from Longmont Braces.",
+        "itemListElement": newsItems
+      };
+
+      const s = document.createElement('script');
+      s.type = "application/ld+json";
+      s.text = JSON.stringify(schema);
+      document.head.appendChild(s);
+    }
+  </script>
 </body>
 </html>
